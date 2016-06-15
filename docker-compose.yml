@@ -12,7 +12,9 @@ services:
             - elasticsearch
     logstash:
         image: logstash:2.2.2
-        command: -e 'input { tcp { port => 5555 } } output { elasticsearch { hosts => ["http://elasticsearch:9200"]} }'
+        command: "-f /app/logstash.conf --verbose"
+        volumes:
+            - ./logstash/:/app/
         ports:
             - "5555:5555"
         depends_on:
